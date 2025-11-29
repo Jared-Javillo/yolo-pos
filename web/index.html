@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Jetson USB Camera POS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="pos-container">
+      <!-- Left Panel - Order List -->
+      <aside class="order-panel">
+        <div class="order-items">
+          <div class="items-header">Items</div>
+          <div id="order-list" class="items-list">
+            <div class="empty-order">No items added</div>
+          </div>
+        </div>
+
+        <div class="order-footer">
+          <div class="order-totals">
+            <div class="total-row">
+              <span>Subtotal:</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+          </div>
+          <div class="order-payment">
+            <button class="payment-btn primary" id="pay-btn">Pay $0.00</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Panel - Camera & Items -->
+      <main class="main-panel">
+        <div class="camera-section">
+          <img id="video-feed" src="/video-stream" alt="Live camera feed" />
+          <div id="status" class="camera-status" hidden>Connecting…</div>
+        </div>
+      </main>
+    </div>
+    <script src="/static/app.js" type="module"></script>
+  </body>
+</html>

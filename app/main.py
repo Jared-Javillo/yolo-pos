@@ -13,6 +13,7 @@ from .camera import CameraNotReadyError, USBCameraStream
 BASE_DIR = Path(__file__).resolve().parent.parent
 WEB_DIR = BASE_DIR / "web"
 STATIC_DIR = WEB_DIR / "static"
+MODEL_PATH = BASE_DIR / "model" / "best.pt"
 
 app = FastAPI(title="Jetson USB Camera Stream", version="1.0.0")
 app.add_middleware(
@@ -22,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-camera = USBCameraStream()
+camera = USBCameraStream(model_path=str(MODEL_PATH) if MODEL_PATH.exists() else None)
 
 
 @app.on_event("startup")
@@ -69,6 +70,25 @@ async def health() -> dict[str, str]:
     except CameraNotReadyError:
         return {"status": "warming_up"}
     return {"status": "ok"}
+
+
+@app.get("/detections")
+async def detections() -> list[dict]:
+    """Get newly detected items from the camera."""
+    return camera.get_detections()
+
+
+@app.get("/recording-state")
+async def recording_state() -> dict[str, bool]:
+    """Get current recording state."""
+    return {"recording": camera.is_recording()}
+
+
+@app.get("/prices")
+async def get_prices() -> dict[str, int]:
+    """Get all item prices."""
+    from .camera import ITEM_PRICES
+    return ITEM_PRICES
 
 
 if STATIC_DIR.exists():

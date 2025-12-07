@@ -91,7 +91,7 @@ class USBCameraStream:
         fps: int = 30,
         model_path: Optional[str] = None,
         inference_interval: int = 5,
-        confidence_threshold: float = 0.9,
+        confidence_threshold: float = 0.85,
         cooldown_seconds: float = 2.0,
     ) -> None:
         self.device_index = device_index
@@ -114,6 +114,7 @@ class USBCameraStream:
         self._detection_lock = threading.Lock()
         self._last_detection_time: dict[str, float] = {}
         self._detection_queue: deque[dict] = deque(maxlen=100)
+        self._last_added_item: Optional[str] = None  # Track last item added to prevent consecutive duplicates
         
         # Load YOLO model if path provided
         if model_path:
@@ -236,8 +237,11 @@ class USBCameraStream:
             # Check if confidence meets threshold
             meets_threshold = confidence >= self.confidence_threshold
             
-            # Add to detection queue if meets threshold, not in cooldown, AND recording is enabled
-            if meets_threshold and not in_cooldown and self._recording_enabled:
+            # Check if this is the same as the last added item (prevent consecutive duplicates)
+            is_duplicate_of_last = class_name == self._last_added_item
+            
+            # Add to detection queue if meets threshold, not in cooldown, not a consecutive duplicate, AND recording is enabled
+            if meets_threshold and not in_cooldown and not is_duplicate_of_last and self._recording_enabled:
                 price = ITEM_PRICES.get(class_name, 0)
                 with self._detection_lock:
                     self._detection_queue.append({
@@ -247,13 +251,24 @@ class USBCameraStream:
                         "price": price
                     })
                     self._last_detection_time[class_name] = current_time
+                    self._last_added_item = class_name  # Update last added item
                 
                 # Log the detection with price
                 logger.info(f"Detected: {class_name} | Confidence: {confidence:.2%} | Price: {price}")
+            elif meets_threshold and not in_cooldown and is_duplicate_of_last:
+                # Reset last_added_item if a different item is detected (allows next item to be added)
+                if self._last_added_item and class_name != self._last_added_item:
+                    with self._detection_lock:
+                        self._last_added_item = None
             
-            # Draw bounding box - green if meets threshold and ready to add, yellow if in cooldown, gray if below threshold
+            # Draw bounding box - green if ready to add, orange if in cooldown, gray if consecutive duplicate or below threshold
             if meets_threshold:
-                color = (0, 200, 255) if in_cooldown else (0, 255, 0)  # BGR format
+                if is_duplicate_of_last:
+                    color = (128, 128, 128)  # Gray for consecutive duplicate
+                elif in_cooldown:
+                    color = (0, 200, 255)  # Orange for cooldown
+                else:
+                    color = (0, 255, 0)  # Green for ready to add
             else:
                 color = (128, 128, 128)  # Gray for below threshold
             cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
@@ -316,6 +331,9 @@ class USBCameraStream:
                         logger.info("Recording STARTED - Items will be added to order")
                     else:
                         logger.info("Recording STOPPED - Items will not be added")
+                        # Reset last added item when stopping recording for new transaction
+                        with self._detection_lock:
+                            self._last_added_item = None
                     self._gesture_history.clear()
     
     def get_detections(self) -> list[dict]:

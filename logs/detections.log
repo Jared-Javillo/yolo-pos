@@ -242,3 +242,127 @@
 2025-12-06 09:15:47,063 - Recording STOPPED - Items will not be added
 2025-12-06 09:15:58,814 - Recording STARTED - Items will be added to order
 2025-12-06 09:16:02,510 - Detected: UFC-Canned-Mushroom | Confidence: 93.11% | Price: 35
+2025-12-07 09:27:38,313 - CUDA available: True
+2025-12-07 09:27:38,320 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 09:27:38,321 - CUDA version: 12.1
+2025-12-07 09:27:38,565 - YOLO model loaded on GPU
+2025-12-07 09:28:43,216 - Recording STARTED - Items will be added to order
+2025-12-07 09:29:01,594 - Detected: person | Confidence: 90.22% | Price: 0
+2025-12-07 09:29:04,014 - Detected: person | Confidence: 90.29% | Price: 0
+2025-12-07 09:29:06,769 - Detected: person | Confidence: 90.12% | Price: 0
+2025-12-07 09:29:09,148 - Detected: person | Confidence: 90.27% | Price: 0
+2025-12-07 09:29:11,282 - Detected: person | Confidence: 90.30% | Price: 0
+2025-12-07 09:29:17,455 - Detected: person | Confidence: 92.06% | Price: 0
+2025-12-07 09:29:20,801 - Detected: person | Confidence: 90.07% | Price: 0
+2025-12-07 09:30:01,388 - Detected: person | Confidence: 90.01% | Price: 0
+2025-12-07 09:30:03,621 - Detected: person | Confidence: 90.54% | Price: 0
+2025-12-07 09:30:06,088 - Detected: person | Confidence: 90.68% | Price: 0
+2025-12-07 09:30:08,122 - Detected: person | Confidence: 91.61% | Price: 0
+2025-12-07 09:30:10,508 - Detected: person | Confidence: 90.53% | Price: 0
+2025-12-07 09:30:12,824 - Detected: person | Confidence: 90.89% | Price: 0
+2025-12-07 09:30:16,552 - Detected: person | Confidence: 90.71% | Price: 0
+2025-12-07 09:30:18,566 - Detected: person | Confidence: 90.59% | Price: 0
+2025-12-07 09:30:20,723 - Detected: person | Confidence: 91.26% | Price: 0
+2025-12-07 09:30:22,850 - Detected: person | Confidence: 90.11% | Price: 0
+2025-12-07 09:30:25,385 - Detected: person | Confidence: 90.17% | Price: 0
+2025-12-07 09:30:28,172 - Detected: person | Confidence: 90.39% | Price: 0
+2025-12-07 09:30:33,419 - Detected: person | Confidence: 90.66% | Price: 0
+2025-12-07 09:30:54,476 - Detected: person | Confidence: 90.22% | Price: 0
+2025-12-07 09:30:56,930 - Detected: person | Confidence: 90.59% | Price: 0
+2025-12-07 09:30:59,105 - Detected: person | Confidence: 90.29% | Price: 0
+2025-12-07 09:31:18,801 - Detected: person | Confidence: 90.39% | Price: 0
+2025-12-07 09:32:18,934 - CUDA available: True
+2025-12-07 09:32:18,937 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 09:32:18,937 - CUDA version: 12.1
+2025-12-07 09:32:19,128 - YOLO model loaded on GPU
+2025-12-07 09:33:18,175 - Recording STARTED - Items will be added to order
+2025-12-07 09:33:18,387 - Detected: Bactidol | Confidence: 90.36% | Price: 85
+2025-12-07 09:33:21,290 - Detected: Bactidol | Confidence: 90.73% | Price: 85
+2025-12-07 09:33:23,558 - Detected: Bactidol | Confidence: 91.42% | Price: 85
+2025-12-07 09:33:25,870 - Detected: Bactidol | Confidence: 91.17% | Price: 85
+2025-12-07 09:33:40,553 - Detected: Bactidol | Confidence: 91.59% | Price: 85
+2025-12-07 09:33:42,695 - Detected: Bactidol | Confidence: 91.45% | Price: 85
+2025-12-07 09:33:44,971 - Detected: Bactidol | Confidence: 91.67% | Price: 85
+2025-12-07 09:33:47,149 - Detected: Bactidol | Confidence: 90.94% | Price: 85
+2025-12-07 09:33:50,270 - Detected: Bactidol | Confidence: 90.86% | Price: 85
+2025-12-07 09:33:52,277 - Detected: Bactidol | Confidence: 90.19% | Price: 85
+2025-12-07 09:34:05,350 - Detected: coffee_nescafe | Confidence: 92.54% | Price: 10
+2025-12-07 09:34:10,548 - Detected: coffee_kopiko | Confidence: 90.10% | Price: 10
+2025-12-07 09:34:13,515 - Recording STOPPED - Items will not be added
+2025-12-07 09:34:16,397 - Recording STARTED - Items will be added to order
+2025-12-07 09:34:36,158 - Detected: Libbys-Vienna-Sausage-can | Confidence: 91.20% | Price: 23
+2025-12-07 09:34:38,902 - Detected: Libbys-Vienna-Sausage-can | Confidence: 90.58% | Price: 23
+2025-12-07 09:34:41,548 - Detected: Libbys-Vienna-Sausage-can | Confidence: 92.59% | Price: 23
+2025-12-07 09:36:11,538 - CUDA available: True
+2025-12-07 09:36:11,541 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 09:36:11,541 - CUDA version: 12.1
+2025-12-07 09:36:11,724 - YOLO model loaded on GPU
+2025-12-07 09:37:18,359 - Recording STARTED - Items will be added to order
+2025-12-07 09:37:43,179 - Recording STOPPED - Items will not be added
+2025-12-07 09:37:44,968 - Recording STARTED - Items will be added to order
+2025-12-07 09:37:49,378 - Detected: Libbys-Vienna-Sausage-can | Confidence: 90.23% | Price: 23
+2025-12-07 09:37:54,402 - Detected: Libbys-Vienna-Sausage-can | Confidence: 90.68% | Price: 23
+2025-12-07 09:37:54,754 - Detected: Nivea-Deodorant | Confidence: 90.49% | Price: 100
+2025-12-07 09:37:59,099 - Detected: HS-Shampoo | Confidence: 91.17% | Price: 0
+2025-12-07 09:38:04,501 - Detected: HS-Shampoo | Confidence: 90.15% | Price: 0
+2025-12-07 09:41:47,925 - CUDA available: True
+2025-12-07 09:41:47,927 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 09:41:47,928 - CUDA version: 12.1
+2025-12-07 09:41:48,167 - YOLO model loaded on GPU
+2025-12-07 09:42:42,783 - Recording STARTED - Items will be added to order
+2025-12-07 09:42:49,703 - Detected: irish-spring-soap | Confidence: 89.53% | Price: 40
+2025-12-07 09:43:01,806 - Detected: Bactidol | Confidence: 89.66% | Price: 85
+2025-12-07 09:43:08,265 - Detected: VCut-Spicy-Barbeque | Confidence: 91.56% | Price: 20
+2025-12-07 09:43:15,167 - Detected: Lucky-Me-Pancit-Canton | Confidence: 87.84% | Price: 0
+2025-12-07 09:43:28,096 - Detected: Libbys-Vienna-Sausage-can | Confidence: 90.21% | Price: 23
+2025-12-07 09:43:31,319 - Detected: UFC-Canned-Mushroom | Confidence: 87.35% | Price: 35
+2025-12-07 09:43:33,238 - Detected: Century-Tuna | Confidence: 92.64% | Price: 38
+2025-12-07 09:44:08,017 - Detected: Femme-Bathroom-Tissue | Confidence: 85.81% | Price: 20
+2025-12-07 09:44:35,126 - Detected: double-black | Confidence: 85.46% | Price: 1000
+2025-12-07 14:45:49,067 - CUDA available: True
+2025-12-07 14:45:49,072 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 14:45:49,073 - CUDA version: 12.1
+2025-12-07 14:45:49,400 - YOLO model loaded on GPU
+2025-12-07 14:46:43,560 - Recording STARTED - Items will be added to order
+2025-12-07 14:46:52,012 - Detected: irish-spring-soap | Confidence: 85.90% | Price: 40
+2025-12-07 14:46:58,304 - Detected: Nestle-Chuckie | Confidence: 88.53% | Price: 0
+2025-12-07 14:47:02,196 - Detected: double-black | Confidence: 87.60% | Price: 1000
+2025-12-07 14:47:08,945 - Detected: VCut-Spicy-Barbeque | Confidence: 85.70% | Price: 20
+2025-12-07 14:47:12,693 - Detected: Femme-Bathroom-Tissue | Confidence: 90.21% | Price: 20
+2025-12-07 14:47:21,137 - Detected: Lucky-Me-Pancit-Canton | Confidence: 88.50% | Price: 0
+2025-12-07 14:47:24,911 - Detected: Stik-O | Confidence: 87.91% | Price: 12
+2025-12-07 14:47:28,277 - Detected: NongshimCupNoodles | Confidence: 91.02% | Price: 50
+2025-12-07 14:47:57,528 - Detected: c2_na_green | Confidence: 88.74% | Price: 20
+2025-12-07 14:48:00,244 - Detected: Delight-Probiotic-Drink | Confidence: 88.52% | Price: 12
+2025-12-07 14:48:14,119 - Detected: Maya-Champorado | Confidence: 85.36% | Price: 0
+2025-12-07 14:48:45,162 - Detected: Smart-C | Confidence: 87.65% | Price: 22
+2025-12-07 14:48:50,949 - Detected: UFC-Canned-Mushroom | Confidence: 92.74% | Price: 35
+2025-12-07 14:48:59,430 - Detected: Century-Tuna | Confidence: 88.68% | Price: 38
+2025-12-07 14:49:35,723 - Detected: Bactidol | Confidence: 85.87% | Price: 85
+2025-12-07 14:50:15,328 - Detected: coffee_kopiko | Confidence: 89.05% | Price: 10
+2025-12-07 14:50:23,628 - Detected: coffee_nescafe | Confidence: 85.06% | Price: 10
+2025-12-07 14:50:41,303 - Detected: Nivea-Deodorant | Confidence: 85.33% | Price: 100
+2025-12-07 14:50:52,412 - Detected: meadows-truffle | Confidence: 89.65% | Price: 0
+2025-12-07 14:51:03,596 - Detected: Libbys-Vienna-Sausage-can | Confidence: 87.81% | Price: 23
+2025-12-07 14:51:29,304 - Recording STOPPED - Items will not be added
+2025-12-07 14:51:44,785 - Recording STARTED - Items will be added to order
+2025-12-07 14:51:45,110 - Recording STOPPED - Items will not be added
+2025-12-07 14:52:17,211 - Recording STARTED - Items will be added to order
+2025-12-07 14:52:27,004 - Detected: Pineapple-juice-can | Confidence: 87.73% | Price: 0
+2025-12-07 14:52:36,664 - Recording STOPPED - Items will not be added
+2025-12-07 14:52:38,288 - Recording STARTED - Items will be added to order
+2025-12-07 14:52:40,267 - Recording STOPPED - Items will not be added
+2025-12-07 14:52:42,121 - Recording STARTED - Items will be added to order
+2025-12-07 14:52:52,541 - CUDA available: True
+2025-12-07 14:52:52,543 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 14:52:52,543 - CUDA version: 12.1
+2025-12-07 14:52:52,669 - YOLO model loaded on GPU
+2025-12-07 14:53:33,350 - Recording STARTED - Items will be added to order
+2025-12-07 14:53:39,317 - Recording STOPPED - Items will not be added
+2025-12-07 14:53:48,522 - Recording STARTED - Items will be added to order
+2025-12-07 14:53:59,463 - Detected: Lucky-Me-Pancit-Canton | Confidence: 86.58% | Price: 0
+2025-12-07 14:54:34,058 - Detected: Alaska-Milk | Confidence: 86.96% | Price: 0
+2025-12-07 14:54:53,243 - Detected: Summit-Drinking-Water | Confidence: 87.19% | Price: 15
+2025-12-07 14:55:07,586 - Detected: Coke-in-can | Confidence: 88.14% | Price: 30
+2025-12-07 14:55:31,103 - Detected: Piknik | Confidence: 86.40% | Price: 25
+2025-12-07 14:55:55,819 - Recording STOPPED - Items will not be added

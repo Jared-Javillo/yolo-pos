@@ -8,12 +8,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
+from . import config
 from .camera import CameraNotReadyError, USBCameraStream
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 WEB_DIR = BASE_DIR / "web"
 STATIC_DIR = WEB_DIR / "static"
-MODEL_PATH = BASE_DIR / "model" / "best.pt"
+MODEL_PATH = config.DEFAULT_MODEL_PATH
 
 app = FastAPI(title="Jetson USB Camera Stream", version="1.0.0")
 app.add_middleware(
@@ -23,7 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-camera = USBCameraStream(model_path=str(MODEL_PATH) if MODEL_PATH.exists() else None)
+camera = USBCameraStream(
+    model_path=str(MODEL_PATH) if MODEL_PATH.exists() else None,
+    per_class_thresholds=config.PER_CLASS_CONFIDENCE_THRESHOLDS,
+)
 
 
 @app.on_event("startup")
@@ -87,8 +91,7 @@ async def recording_state() -> dict[str, bool]:
 @app.get("/prices")
 async def get_prices() -> dict[str, int]:
     """Get all item prices."""
-    from .camera import ITEM_PRICES
-    return ITEM_PRICES
+    return config.ITEM_PRICES
 
 
 if STATIC_DIR.exists():

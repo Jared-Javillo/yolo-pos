@@ -366,3 +366,56 @@
 2025-12-07 14:55:07,586 - Detected: Coke-in-can | Confidence: 88.14% | Price: 30
 2025-12-07 14:55:31,103 - Detected: Piknik | Confidence: 86.40% | Price: 25
 2025-12-07 14:55:55,819 - Recording STOPPED - Items will not be added
+2025-12-07 14:59:53,506 - CUDA available: True
+2025-12-07 14:59:53,508 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 14:59:53,508 - CUDA version: 12.1
+2025-12-07 14:59:53,647 - YOLO model loaded on GPU
+2025-12-07 15:01:13,955 - CUDA available: True
+2025-12-07 15:01:13,957 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 15:01:13,957 - CUDA version: 12.1
+2025-12-07 15:01:14,093 - YOLO model loaded on GPU
+2025-12-07 15:01:56,856 - Recording STARTED - Items will be added to order
+2025-12-07 15:01:59,424 - Detected: HS-Shampoo | Confidence: 81.98% | Price: 0
+2025-12-07 15:02:13,266 - Detected: Nivea-Deodorant | Confidence: 87.08% | Price: 100
+2025-12-07 15:02:34,282 - Detected: meadows-truffle | Confidence: 80.77% | Price: 0
+2025-12-07 15:02:41,371 - Detected: Coke-in-can | Confidence: 89.96% | Price: 30
+2025-12-07 15:02:49,735 - Detected: Piknik | Confidence: 84.82% | Price: 25
+2025-12-07 15:02:50,133 - Detected: Century-Tuna | Confidence: 83.81% | Price: 38
+2025-12-07 15:03:18,110 - Detected: Stik-O | Confidence: 87.09% | Price: 12
+2025-12-07 15:03:45,092 - Detected: Libbys-Vienna-Sausage-can | Confidence: 82.98% | Price: 23
+2025-12-07 15:04:10,659 - Recording STOPPED - Items will not be added
+2025-12-07 15:04:38,836 - Recording STARTED - Items will be added to order
+2025-12-07 15:06:10,243 - Detected: Bactidol | Confidence: 79.28% | Price: 85
+2025-12-07 15:23:10,782 - CUDA available: True
+2025-12-07 15:23:10,784 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 15:23:10,784 - CUDA version: 12.1
+2025-12-07 15:23:10,918 - YOLO model loaded on GPU
+2025-12-07 15:23:50,181 - Recording STARTED - Items will be added to order
+2025-12-07 15:23:51,258 - Detected: Bactidol | Confidence: 78.60% | Threshold: 78.00% | Price: 85
+2025-12-07 15:23:56,774 - Recording STOPPED - Items will not be added
+2025-12-07 15:37:17,244 - Recording STARTED - Items will be added to order
+2025-12-07 15:37:17,369 - Recording STOPPED - Items will not be added
+2025-12-07 15:37:49,208 - Recording STARTED - Items will be added to order
+2025-12-07 15:37:49,516 - Detected: Bactidol | Confidence: 86.31% | Threshold: 78.00% | Price: 85
+2025-12-07 15:38:13,596 - Detected: HS-Shampoo | Confidence: 78.29% | Threshold: 78.00% | Price: 0
+2025-12-07 15:38:33,362 - Detected: irish-spring-soap | Confidence: 82.42% | Threshold: 78.00% | Price: 40
+2025-12-07 15:38:48,999 - Detected: c2_na_green | Confidence: 88.15% | Threshold: 78.00% | Price: 20
+2025-12-07 15:39:09,796 - Detected: Bactidol | Confidence: 83.86% | Threshold: 78.00% | Price: 85
+2025-12-07 15:40:35,989 - Detected: Selecta-Cornetto | Confidence: 78.94% | Threshold: 78.00% | Price: 35
+2025-12-07 15:41:24,163 - Detected: meadows-truffle | Confidence: 79.15% | Threshold: 78.00% | Price: 0
+2025-12-07 15:41:42,264 - Detected: double-black | Confidence: 85.85% | Threshold: 78.00% | Price: 1000
+2025-12-07 15:42:23,369 - CUDA available: True
+2025-12-07 15:42:23,371 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 15:42:23,371 - CUDA version: 12.1
+2025-12-07 15:42:23,508 - YOLO model loaded on GPU
+2025-12-07 15:42:58,177 - CUDA available: True
+2025-12-07 15:42:58,180 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-07 15:42:58,180 - CUDA version: 12.1
+2025-12-07 15:42:58,314 - YOLO model loaded on GPU
+2025-12-07 15:43:48,931 - Recording STARTED - Items will be added to order
+2025-12-07 15:43:52,221 - Recording STOPPED - Items will not be added
+2025-12-07 15:43:54,203 - Recording STARTED - Items will be added to order
+2025-12-07 15:43:55,857 - Recording STOPPED - Items will not be added
+2025-12-07 15:43:58,266 - Recording STARTED - Items will be added to order
+2025-12-07 15:44:03,641 - Detected: colgate_toothpaste | Confidence: 55.98% | Threshold: 50.00% | Price: 70
+2025-12-07 15:44:13,517 - Detected: irish-spring-soap | Confidence: 84.85% | Threshold: 80.00% | Price: 40

@@ -14,58 +14,20 @@ import mediapipe as mp
 import torch
 from ultralytics import YOLO
 
+from . import config
+
 # Configure logging
-LOG_DIR = Path(__file__).resolve().parent.parent / "logs"
-LOG_DIR.mkdir(exist_ok=True)
-LOG_FILE = LOG_DIR / "detections.log"
+config.LOG_DIR.mkdir(exist_ok=True)
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s',
+    level=getattr(logging, config.LOG_LEVEL),
+    format=config.LOG_FORMAT,
     handlers=[
-        logging.FileHandler(LOG_FILE),
+        logging.FileHandler(config.LOG_FILE),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
-
-# Price mapping for detected items (in local currency)
-ITEM_PRICES = {
-    "coffee_nescafe": 10,
-    "coffee_kopiko": 10,
-    "lucky-me-pancit-canton": 14,
-    "Coke-in-can": 30,
-    "alaska_milk": 28,
-    "Century-Tuna": 38,
-    "VCut-Spicy-Barbeque": 20,
-    "Selecta-Cornetto": 35,
-    "nestleyogurt": 25,
-    "Femme-Bathroom-Tissue": 20,
-    "maya-champorado": 94,
-    "jnj-potato-chips": 20,
-    "Nivea-Deodorant": 100,
-    "UFC-Canned-Mushroom": 35,
-    "Libbys-Vienna-Sausage-can": 23,
-    "Stik-O": 12,
-    "nissin_cup_noodles": 22,
-    "dewberry-strawberry": 18,
-    "Smart-C": 22,
-    "pineapple-juice-can": 30,
-    "nestle_chuckie": 15,
-    "Delight-Probiotic-Drink": 12,
-    "Summit-Drinking-Water": 15,
-    "almond_milk": 90,
-    "Piknik": 25,
-    "Bactidol": 85,
-    "head&shoulders_shampoo": 210,
-    "irish-spring-soap": 40,
-    "c2_na_green": 20,
-    "colgate_toothpaste": 70,
-    "555-sardines-tomato": 26,
-    "meadows_truffle_chips": 90,
-    "double-black": 1000,
-    "NongshimCupNoodles": 50,
-}
 
 # Check GPU availability
 logger.info(f"CUDA available: {torch.cuda.is_available()}")
@@ -85,14 +47,15 @@ class USBCameraStream:
 
     def __init__(
         self,
-        device_index: int = 0,
-        width: int = 640,
-        height: int = 480,
-        fps: int = 30,
+        device_index: int = config.CAMERA_DEVICE_INDEX,
+        width: int = config.CAMERA_WIDTH,
+        height: int = config.CAMERA_HEIGHT,
+        fps: int = config.CAMERA_FPS,
         model_path: Optional[str] = None,
-        inference_interval: int = 5,
-        confidence_threshold: float = 0.85,
-        cooldown_seconds: float = 2.0,
+        inference_interval: int = config.INFERENCE_INTERVAL,
+        confidence_threshold: float = config.CONFIDENCE_THRESHOLD,
+        cooldown_seconds: float = config.COOLDOWN_SECONDS,
+        per_class_thresholds: Optional[dict[str, float]] = None,
     ) -> None:
         self.device_index = device_index
         self.width = width
@@ -113,8 +76,9 @@ class USBCameraStream:
         self._frame_count = 0
         self._detection_lock = threading.Lock()
         self._last_detection_time: dict[str, float] = {}
-        self._detection_queue: deque[dict] = deque(maxlen=100)
+        self._detection_queue: deque[dict] = deque(maxlen=config.DETECTION_QUEUE_MAX_SIZE)
         self._last_added_item: Optional[str] = None  # Track last item added to prevent consecutive duplicates
+        self._per_class_thresholds: dict[str, float] = per_class_thresholds or {}
         
         # Load YOLO model if path provided
         if model_path:
@@ -132,13 +96,13 @@ class USBCameraStream:
         
         # Hand gesture detection
         self._hands = mp.solutions.hands.Hands(
-            static_image_mode=False,
-            max_num_hands=1,
-            min_detection_confidence=0.85,
-            min_tracking_confidence=0.5
+            static_image_mode=config.GESTURE_STATIC_IMAGE_MODE,
+            max_num_hands=config.GESTURE_MAX_NUM_HANDS,
+            min_detection_confidence=config.GESTURE_MIN_DETECTION_CONFIDENCE,
+            min_tracking_confidence=config.GESTURE_MIN_TRACKING_CONFIDENCE
         )
         self._recording_enabled = False
-        self._gesture_history: deque[str] = deque(maxlen=2)
+        self._gesture_history: deque[str] = deque(maxlen=config.GESTURE_HISTORY_MAX_SIZE)
 
     def start(self) -> None:
         if self._running:
@@ -190,10 +154,10 @@ class USBCameraStream:
             self._update_recording_state(gesture)
             
             # Draw recording status
-            status_text = "REC" if self._recording_enabled else "PAUSED"
-            status_color = (0, 0, 255) if self._recording_enabled else (128, 128, 128)
-            cv2.putText(frame, status_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 
-                       0.8, status_color, 2)
+            status_text = config.STATUS_TEXT_RECORDING if self._recording_enabled else config.STATUS_TEXT_PAUSED
+            status_color = config.STATUS_COLOR_RECORDING if self._recording_enabled else config.STATUS_COLOR_PAUSED
+            cv2.putText(frame, status_text, config.STATUS_POSITION, config.STATUS_FONT, 
+                       config.STATUS_FONT_SCALE, status_color, config.STATUS_FONT_THICKNESS)
             
             # Run YOLO inference every Nth frame
             if self._model and self._frame_count % self.inference_interval == 0:
@@ -234,19 +198,22 @@ class USBCameraStream:
             time_since_last = current_time - last_time
             in_cooldown = time_since_last < self.cooldown_seconds
             
+            # Determine threshold (per-class override falls back to default)
+            threshold = self._per_class_thresholds.get(class_name, self.confidence_threshold)
             # Check if confidence meets threshold
-            meets_threshold = confidence >= self.confidence_threshold
+            meets_threshold = confidence >= threshold
             
             # Check if this is the same as the last added item (prevent consecutive duplicates)
             is_duplicate_of_last = class_name == self._last_added_item
             
             # Add to detection queue if meets threshold, not in cooldown, not a consecutive duplicate, AND recording is enabled
             if meets_threshold and not in_cooldown and not is_duplicate_of_last and self._recording_enabled:
-                price = ITEM_PRICES.get(class_name, 0)
+                price = config.ITEM_PRICES.get(class_name, 0)
                 with self._detection_lock:
                     self._detection_queue.append({
                         "class_name": class_name,
                         "confidence": confidence,
+                        "used_threshold": threshold,
                         "timestamp": current_time,
                         "price": price
                     })
@@ -254,7 +221,7 @@ class USBCameraStream:
                     self._last_added_item = class_name  # Update last added item
                 
                 # Log the detection with price
-                logger.info(f"Detected: {class_name} | Confidence: {confidence:.2%} | Price: {price}")
+                logger.info(f"Detected: {class_name} | Confidence: {confidence:.2%} | Threshold: {threshold:.2%} | Price: {price}")
             elif meets_threshold and not in_cooldown and is_duplicate_of_last:
                 # Reset last_added_item if a different item is detected (allows next item to be added)
                 if self._last_added_item and class_name != self._last_added_item:
@@ -264,20 +231,20 @@ class USBCameraStream:
             # Draw bounding box - green if ready to add, orange if in cooldown, gray if consecutive duplicate or below threshold
             if meets_threshold:
                 if is_duplicate_of_last:
-                    color = (128, 128, 128)  # Gray for consecutive duplicate
+                    color = config.BBOX_COLOR_DUPLICATE
                 elif in_cooldown:
-                    color = (0, 200, 255)  # Orange for cooldown
+                    color = config.BBOX_COLOR_COOLDOWN
                 else:
-                    color = (0, 255, 0)  # Green for ready to add
+                    color = config.BBOX_COLOR_READY
             else:
-                color = (128, 128, 128)  # Gray for below threshold
-            cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+                color = config.BBOX_COLOR_LOW_CONFIDENCE
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, config.BBOX_THICKNESS)
             
             # Draw label with confidence
             label = f"{class_name} {confidence:.2f}"
-            label_size, _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)
-            cv2.rectangle(frame, (x1, y1 - label_size[1] - 10), (x1 + label_size[0], y1), color, -1)
-            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+            label_size, _ = cv2.getTextSize(label, config.LABEL_FONT, config.LABEL_FONT_SCALE, config.LABEL_FONT_THICKNESS)
+            cv2.rectangle(frame, (x1, y1 - label_size[1] - config.LABEL_PADDING), (x1 + label_size[0], y1), color, -1)
+            cv2.putText(frame, label, (x1, y1 - 5), config.LABEL_FONT, config.LABEL_FONT_SCALE, config.LABEL_TEXT_COLOR, config.LABEL_FONT_THICKNESS)
         
         return frame
     
@@ -301,18 +268,18 @@ class USBCameraStream:
                 extended_fingers = 0
                 
                 # Check thumb (different logic - x-axis for most hand orientations)
-                if abs(landmarks[thumb_tip].x - landmarks[thumb_base].x) > 0.05:
+                if abs(landmarks[thumb_tip].x - landmarks[thumb_base].x) > config.GESTURE_FINGER_EXTENSION_THRESHOLD:
                     extended_fingers += 1
                 
                 # Check other fingers (y-axis - tip above base means extended)
                 for tip, base in zip(finger_tips, finger_bases):
-                    if landmarks[tip].y < landmarks[base].y - 0.05:
+                    if landmarks[tip].y < landmarks[base].y - config.GESTURE_FINGER_EXTENSION_THRESHOLD:
                         extended_fingers += 1
                 
                 # Classify gesture
-                if extended_fingers >= 4:
+                if extended_fingers >= config.GESTURE_PALM_MIN_FINGERS:
                     return "palm"
-                elif extended_fingers <= 1:
+                elif extended_fingers <= config.GESTURE_FIST_MAX_FINGERS:
                     return "fist"
         
         return None

@@ -8,11 +8,16 @@ from collections import deque
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
+import queue
 
 import cv2
 import mediapipe as mp
 import torch
 from ultralytics import YOLO
+try:
+    import pyttsx3
+except Exception:  # pragma: no cover - optional dependency
+    pyttsx3 = None
 
 from . import config
 
@@ -28,6 +33,102 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+
+class TTSAnnouncer:
+    """Background TTS announcer using pyttsx3.
+
+    Uses a worker thread and message queue so speaking doesn't block camera loop.
+    """
+
+    def __init__(self):
+        self._queue: "queue.Queue[str]" = queue.Queue()
+        self._thread: Optional[threading.Thread] = None
+        self._running = False
+        # Do not init pyttsx3 engine on the main thread; initialize on worker thread
+        self._engine = None
+
+    def start(self) -> None:
+        if self._running:
+            return
+        self._running = True
+        self._thread = threading.Thread(target=self._worker, daemon=True)
+        self._thread.start()
+
+    def stop(self) -> None:
+        self._running = False
+        # Put sentinel to unblock queue.get
+        try:
+            self._queue.put_nowait("")
+        except Exception:
+            pass
+        if self._thread and self._thread.is_alive():
+            self._thread.join(timeout=1)
+        if self._engine is not None:
+            try:
+                # Some engines require explicit stop/cleanup
+                self._engine.stop()
+            except Exception:
+                pass
+
+    def speak(self, text: str) -> None:
+        # Non-blocking enqueue
+        if not text:
+            return
+        logger.debug("Enqueue TTS: %s", text)
+        try:
+            self._queue.put_nowait(text)
+        except Exception:
+            pass
+
+    def _worker(self) -> None:
+        # Initialize engine on worker thread to avoid cross-thread issues
+        if pyttsx3 is not None:
+            try:
+                self._engine = pyttsx3.init()
+                # sensible defaults
+                try:
+                    self._engine.setProperty('rate', 150)
+                    self._engine.setProperty('volume', 1.0)
+                except Exception:
+                    pass
+                logger.debug("TTS engine initialized on worker thread")
+            except Exception:
+                logger.exception("Failed to initialize TTS engine on worker thread")
+                self._engine = None
+
+        while self._running:
+            try:
+                # Use timeout so we can exit promptly when stopping
+                text = self._queue.get(timeout=0.5)
+            except Exception:
+                # timeout or queue error - loop again if still running
+                continue
+
+            if not self._running:
+                break
+            if not text:
+                continue
+
+            logger.debug("TTS speaking: %s", text)
+
+            # If engine unavailable, just log the phrase
+            if self._engine is None:
+                logger.info("TTS would say: %s", text)
+                continue
+
+            try:
+                self._engine.say(text)
+                self._engine.runAndWait()
+            except Exception:
+                logger.exception("TTS engine failed during speak; will attempt re-init")
+                # Drop engine so we try to re-init on next loop
+                try:
+                    self._engine = None
+                    if pyttsx3 is not None:
+                        self._engine = pyttsx3.init()
+                except Exception:
+                    logger.exception("Re-init of TTS engine failed")
 
 # Check GPU availability
 logger.info(f"CUDA available: {torch.cuda.is_available()}")
@@ -79,6 +180,9 @@ class USBCameraStream:
         self._detection_queue: deque[dict] = deque(maxlen=config.DETECTION_QUEUE_MAX_SIZE)
         self._last_added_item: Optional[str] = None  # Track last item added to prevent consecutive duplicates
         self._per_class_thresholds: dict[str, float] = per_class_thresholds or {}
+        # Running total for the current recording transaction
+        self._transaction_total: int = 0
+        self._transaction_items: list[dict] = []
         
         # Load YOLO model if path provided
         if model_path:
@@ -103,6 +207,8 @@ class USBCameraStream:
         )
         self._recording_enabled = False
         self._gesture_history: deque[str] = deque(maxlen=config.GESTURE_HISTORY_MAX_SIZE)
+        # Text-to-speech announcer (background worker)
+        self._tts = TTSAnnouncer()
 
     def start(self) -> None:
         if self._running:
@@ -119,8 +225,18 @@ class USBCameraStream:
         self._capture = capture
 
         self._running = True
+        # Start TTS worker
+        try:
+            self._tts.start()
+        except Exception:
+            logger.exception("Failed to start TTS announcer")
         self._thread = threading.Thread(target=self._reader_loop, daemon=True)
         self._thread.start()
+        # Reset transaction state on start
+        with self._detection_lock:
+            self._transaction_total = 0
+            self._transaction_items.clear()
+            self._detection_queue.clear()
 
     def stop(self) -> None:
         self._running = False
@@ -134,6 +250,12 @@ class USBCameraStream:
         
         if self._hands:
             self._hands.close()
+
+        # Stop TTS worker
+        try:
+            self._tts.stop()
+        except Exception:
+            logger.exception("Failed to stop TTS announcer")
 
         with self._frame_lock:
             self._latest_frame = None
@@ -217,8 +339,20 @@ class USBCameraStream:
                         "timestamp": current_time,
                         "price": price
                     })
+                    # Update running transaction total and items so subtotal is reliable
+                    try:
+                        self._transaction_total += int(price or 0)
+                        self._transaction_items.append({"class_name": class_name, "price": price})
+                    except Exception:
+                        logger.exception("Failed to update transaction total")
                     self._last_detection_time[class_name] = current_time
                     self._last_added_item = class_name  # Update last added item
+                    # Announce the detected item via TTS (friendly name)
+                    try:
+                        friendly_name = class_name.replace("_", " ").replace("-", " ").title()
+                        self._tts.speak(f"{friendly_name}")
+                    except Exception:
+                        logger.exception("Failed to enqueue TTS announcement for detection")
                 
                 # Log the detection with price
                 logger.info(f"Detected: {class_name} | Confidence: {confidence:.2%} | Threshold: {threshold:.2%} | Price: {price}")
@@ -301,6 +435,20 @@ class USBCameraStream:
                         # Reset last added item when stopping recording for new transaction
                         with self._detection_lock:
                             self._last_added_item = None
+                            # Use running transaction total (more reliable than queue that may be cleared by API consumers)
+                            try:
+                                subtotal = int(self._transaction_total or 0)
+                                # Friendly announcement (assumed local currency)
+                                self._tts.speak(f"Subtotal {subtotal} pesos")
+                            except Exception:
+                                logger.exception("Failed to compute or speak subtotal")
+                            # Reset transaction state for next transaction
+                            try:
+                                self._transaction_total = 0
+                                self._transaction_items.clear()
+                                self._detection_queue.clear()
+                            except Exception:
+                                logger.exception("Failed to reset transaction state")
                     self._gesture_history.clear()
     
     def get_detections(self) -> list[dict]:

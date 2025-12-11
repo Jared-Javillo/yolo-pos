@@ -419,3 +419,111 @@
 2025-12-07 15:43:58,266 - Recording STARTED - Items will be added to order
 2025-12-07 15:44:03,641 - Detected: colgate_toothpaste | Confidence: 55.98% | Threshold: 50.00% | Price: 70
 2025-12-07 15:44:13,517 - Detected: irish-spring-soap | Confidence: 84.85% | Threshold: 80.00% | Price: 40
+2025-12-09 20:07:16,781 - CUDA available: True
+2025-12-09 20:07:16,787 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-09 20:07:16,787 - CUDA version: 12.1
+2025-12-09 20:07:17,039 - YOLO model loaded on GPU
+2025-12-09 20:08:45,787 - Recording STARTED - Items will be added to order
+2025-12-09 20:09:04,634 - Recording STOPPED - Items will not be added
+2025-12-09 20:09:06,279 - Recording STARTED - Items will be added to order
+2025-12-09 20:09:40,141 - Detected: Coke-in-can | Confidence: 77.32% | Threshold: 72.00% | Price: 30
+2025-12-09 20:09:55,495 - Detected: Piknik | Confidence: 75.24% | Threshold: 60.00% | Price: 25
+2025-12-09 20:10:09,350 - Recording STOPPED - Items will not be added
+2025-12-09 20:10:18,845 - Recording STARTED - Items will be added to order
+2025-12-09 20:10:23,828 - Recording STOPPED - Items will not be added
+2025-12-09 20:10:58,469 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:05,571 - Detected: HS-Shampoo | Confidence: 82.83% | Threshold: 78.00% | Price: 0
+2025-12-09 20:11:10,160 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:36,732 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:39,303 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:40,870 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:42,442 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:43,662 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:45,009 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:45,928 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:46,840 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:47,708 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:48,636 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:49,735 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:51,852 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:53,106 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:54,288 - Recording STOPPED - Items will not be added
+2025-12-09 20:11:55,739 - Recording STARTED - Items will be added to order
+2025-12-09 20:11:57,220 - Recording STOPPED - Items will not be added
+2025-12-09 20:12:00,333 - Recording STARTED - Items will be added to order
+2025-12-09 20:12:04,638 - Recording STOPPED - Items will not be added
+2025-12-11 11:35:13,023 - CUDA available: True
+2025-12-11 11:35:13,026 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-11 11:35:13,026 - CUDA version: 12.1
+2025-12-11 11:35:13,229 - YOLO model loaded on GPU
+2025-12-11 11:35:46,745 - CUDA available: True
+2025-12-11 11:35:46,747 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-11 11:35:46,747 - CUDA version: 12.1
+2025-12-11 11:35:46,887 - YOLO model loaded on GPU
+2025-12-11 11:36:50,824 - Recording STARTED - Items will be added to order
+2025-12-11 11:36:52,181 - Recording STOPPED - Items will not be added
+2025-12-11 11:39:26,758 - CUDA available: True
+2025-12-11 11:39:26,760 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-11 11:39:26,760 - CUDA version: 12.1
+2025-12-11 11:39:26,905 - YOLO model loaded on GPU
+2025-12-11 11:39:26,955 - Could not import comtypes.gen, trying to create it.
+2025-12-11 11:39:26,956 - Created comtypes.gen directory: 'C:\Users\My PC\Documents\ai_222_me7_pos\yolo-pos\venv\Lib\site-packages\comtypes\gen'
+2025-12-11 11:39:26,956 - Writing __init__.py file: 'C:\Users\My PC\Documents\ai_222_me7_pos\yolo-pos\venv\Lib\site-packages\comtypes\gen\__init__.py'
+2025-12-11 11:39:26,965 - Using writeable comtypes cache directory: 'C:\Users\My PC\Documents\ai_222_me7_pos\yolo-pos\venv\Lib\site-packages\comtypes\gen'
+2025-12-11 11:39:26,973 - Could not import comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4: No module named 'comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4'
+2025-12-11 11:39:26,976 - # Generating comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4
+2025-12-11 11:39:27,033 - # Generating comtypes.gen.SpeechLib
+2025-12-11 11:39:27,038 - Could not import comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0: No module named 'comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0'
+2025-12-11 11:39:27,038 - # Generating comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0
+2025-12-11 11:39:27,043 - # Generating comtypes.gen.stdole
+2025-12-11 11:40:30,975 - Recording STARTED - Items will be added to order
+2025-12-11 11:40:59,207 - Detected: Nivea-Deodorant | Confidence: 91.87% | Threshold: 82.00% | Price: 100
+2025-12-11 11:41:05,034 - Recording STOPPED - Items will not be added
+2025-12-11 11:41:28,415 - Recording STARTED - Items will be added to order
+2025-12-11 11:41:31,457 - Detected: Libbys-Vienna-Sausage-can | Confidence: 86.99% | Threshold: 85.00% | Price: 23
+2025-12-11 11:41:39,447 - Detected: Nivea-Deodorant | Confidence: 85.56% | Threshold: 82.00% | Price: 100
+2025-12-11 11:44:07,023 - CUDA available: True
+2025-12-11 11:44:07,026 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-11 11:44:07,026 - CUDA version: 12.1
+2025-12-11 11:44:07,173 - YOLO model loaded on GPU
+2025-12-11 11:44:07,217 - Imported existing <module 'comtypes.gen' from 'C:\\Users\\My PC\\Documents\\ai_222_me7_pos\\yolo-pos\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-12-11 11:44:07,218 - Using writeable comtypes cache directory: 'C:\Users\My PC\Documents\ai_222_me7_pos\yolo-pos\venv\Lib\site-packages\comtypes\gen'
+2025-12-11 11:44:42,774 - Recording STARTED - Items will be added to order
+2025-12-11 11:44:45,406 - Detected: Libbys-Vienna-Sausage-can | Confidence: 89.52% | Threshold: 85.00% | Price: 23
+2025-12-11 11:44:48,354 - Detected: Pineapple-juice-can | Confidence: 83.02% | Threshold: 78.00% | Price: 0
+2025-12-11 11:44:55,999 - Detected: meadows-truffle | Confidence: 81.02% | Threshold: 78.00% | Price: 0
+2025-12-11 11:45:01,796 - Detected: Pineapple-juice-can | Confidence: 79.98% | Threshold: 78.00% | Price: 0
+2025-12-11 11:45:06,989 - Detected: HS-Shampoo | Confidence: 84.33% | Threshold: 78.00% | Price: 0
+2025-12-11 11:45:06,990 - Detected: meadows-truffle | Confidence: 78.42% | Threshold: 78.00% | Price: 0
+2025-12-11 11:46:10,223 - Detected: Bactidol | Confidence: 88.99% | Threshold: 85.00% | Price: 85
+2025-12-11 11:46:20,945 - Recording STOPPED - Items will not be added
+2025-12-11 11:46:29,116 - Recording STARTED - Items will be added to order
+2025-12-11 11:46:31,357 - Detected: Bactidol | Confidence: 88.83% | Threshold: 85.00% | Price: 85
+2025-12-11 11:46:51,375 - CUDA available: True
+2025-12-11 11:46:51,377 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-11 11:46:51,377 - CUDA version: 12.1
+2025-12-11 11:46:51,519 - YOLO model loaded on GPU
+2025-12-11 11:46:51,577 - Imported existing <module 'comtypes.gen' from 'C:\\Users\\My PC\\Documents\\ai_222_me7_pos\\yolo-pos\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-12-11 11:46:51,577 - Using writeable comtypes cache directory: 'C:\Users\My PC\Documents\ai_222_me7_pos\yolo-pos\venv\Lib\site-packages\comtypes\gen'
+2025-12-11 11:47:31,544 - Recording STARTED - Items will be added to order
+2025-12-11 11:47:37,619 - Detected: JnJ-Potato-Chips | Confidence: 81.21% | Threshold: 78.00% | Price: 0
+2025-12-11 11:47:42,469 - Detected: HS-Shampoo | Confidence: 84.72% | Threshold: 78.00% | Price: 0
+2025-12-11 11:51:13,447 - CUDA available: True
+2025-12-11 11:51:13,449 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-11 11:51:13,449 - CUDA version: 12.1
+2025-12-11 11:51:13,582 - YOLO model loaded on GPU
+2025-12-11 11:51:41,955 - Imported existing <module 'comtypes.gen' from 'C:\\Users\\My PC\\Documents\\ai_222_me7_pos\\yolo-pos\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-12-11 11:51:41,955 - Using writeable comtypes cache directory: 'C:\Users\My PC\Documents\ai_222_me7_pos\yolo-pos\venv\Lib\site-packages\comtypes\gen'
+2025-12-11 11:52:27,747 - Recording STARTED - Items will be added to order
+2025-12-11 11:52:30,050 - Detected: coffee_kopiko | Confidence: 86.50% | Threshold: 84.00% | Price: 10
+2025-12-11 11:52:39,053 - Detected: coffee_nescafe | Confidence: 87.31% | Threshold: 85.00% | Price: 10
+2025-12-11 11:52:41,463 - Detected: Bactidol | Confidence: 88.68% | Threshold: 85.00% | Price: 85
+2025-12-11 11:52:41,464 - Detected: JnJ-Potato-Chips | Confidence: 86.11% | Threshold: 78.00% | Price: 0
+2025-12-11 11:52:48,428 - Detected: coffee_kopiko | Confidence: 85.35% | Threshold: 84.00% | Price: 10
+2025-12-11 11:52:49,426 - Detected: coffee_nescafe | Confidence: 86.19% | Threshold: 85.00% | Price: 10
+2025-12-11 11:52:50,431 - Detected: coffee_kopiko | Confidence: 84.12% | Threshold: 84.00% | Price: 10
+2025-12-11 11:52:53,235 - Detected: Dewberry-Strawberry | Confidence: 80.28% | Threshold: 78.00% | Price: 0
+2025-12-11 11:52:59,910 - Recording STOPPED - Items will not be added
+2025-12-11 11:53:07,154 - Recording STARTED - Items will be added to order
+2025-12-11 11:53:09,750 - Recording STOPPED - Items will not be added
+2025-12-11 11:54:49,105 - Recording STARTED - Items will be added to order

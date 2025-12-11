@@ -527,3 +527,19 @@
 2025-12-11 11:53:07,154 - Recording STARTED - Items will be added to order
 2025-12-11 11:53:09,750 - Recording STOPPED - Items will not be added
 2025-12-11 11:54:49,105 - Recording STARTED - Items will be added to order
+2025-12-11 11:56:15,495 - CUDA available: True
+2025-12-11 11:56:15,497 - GPU device: NVIDIA GeForce RTX 3060
+2025-12-11 11:56:15,498 - CUDA version: 12.1
+2025-12-11 11:56:15,624 - YOLO model loaded on GPU
+2025-12-11 11:56:41,726 - Imported existing <module 'comtypes.gen' from 'C:\\Users\\My PC\\Documents\\ai_222_me7_pos\\yolo-pos\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-12-11 11:56:41,726 - Using writeable comtypes cache directory: 'C:\Users\My PC\Documents\ai_222_me7_pos\yolo-pos\venv\Lib\site-packages\comtypes\gen'
+2025-12-11 11:57:01,355 - Recording STARTED - Items will be added to order
+2025-12-11 11:57:04,329 - Recording STOPPED - Items will not be added
+2025-12-11 11:57:07,009 - Recording STARTED - Items will be added to order
+2025-12-11 11:57:08,612 - Recording STOPPED - Items will not be added
+2025-12-11 11:57:10,657 - Recording STARTED - Items will be added to order
+2025-12-11 11:57:12,636 - Recording STOPPED - Items will not be added
+2025-12-11 11:57:15,616 - Recording STARTED - Items will be added to order
+2025-12-11 11:57:20,257 - Detected: coffee_kopiko | Confidence: 86.70% | Threshold: 84.00% | Price: 10
+2025-12-11 11:57:23,225 - Detected: coffee_nescafe | Confidence: 87.33% | Threshold: 85.00% | Price: 10
+2025-12-11 11:57:25,346 - Recording STOPPED - Items will not be added

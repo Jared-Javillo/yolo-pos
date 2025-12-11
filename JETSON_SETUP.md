@@ -20,6 +20,41 @@ sudo apt update
 sudo apt install -y python3 python3-venv python3-pip curl git nano
 ```
 
+### Audio / Bluetooth (TTS) support
+If you plan to use local text-to-speech or Bluetooth speakers, install the following packages. These provide eSpeak (TTS backend), PulseAudio/ALSA, and Bluetooth support:
+```bash
+sudo apt update
+sudo apt install -y espeak ffmpeg libespeak1 alsa-utils pulseaudio pulseaudio-module-bluetooth bluez bluez-tools pavucontrol
+```
+
+Notes:
+- `pyttsx3` (Python dependency) uses `espeak` on Linux; make sure `espeak` is installed.
+- For Bluetooth speakers, pair and connect the device (see section below). Ensure the user running the app has access to audio devices and is in the `audio` group.
+
+### Pairing and using Bluetooth speakers
+Use `bluetoothctl` to pair and connect your speaker. Example:
+```bash
+bluetoothctl
+# inside bluetoothctl prompt:
+power on
+agent on
+default-agent
+scan on
+# wait until your speaker appears, note MAC like AA:BB:CC:DD:EE:FF
+pair AA:BB:CC:DD:EE:FF
+trust AA:BB:CC:DD:EE:FF
+connect AA:BB:CC:DD:EE:FF
+exit
+```
+
+Make the Bluetooth sink the default for PulseAudio (replace `<SINK_NAME>` with the sink name from `pactl list short sinks`):
+```bash
+pactl list short sinks
+pactl set-default-sink <SINK_NAME>
+```
+
+If running as a systemd service, prefer running the app as the logged-in user so PulseAudio/BlueZ are available in the session.
+
 ### Install Chromium:
 If Chromium is not available through APT:
 ```bash
